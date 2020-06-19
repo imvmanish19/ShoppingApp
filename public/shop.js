@@ -14,3 +14,14 @@ function getProducts(done) {
         done(data)
     });
 }
+
+
+function addProduct(name,manufacturer,price,done) {
+    $.post('/api/products', {
+        name: name,
+        manufacturer: manufacturer,
+        price: price
+    }, (data) => {
+        done(data)
+    })
+}
