@@ -2,7 +2,7 @@ const dotenv = require('dotenv').config();
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
 
-const db = Sequelize('shopdb','shopper',process.env.password,{
+const db = new Sequelize('shopdb','shopper',process.env.password,{
     host: 'localhost',
     dialect: 'mysql',
     pool: {
@@ -15,7 +15,7 @@ const User = db.define('users', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        primartKey: true
+        primaryKey: true
     },
     name: {
         type: DataTypes.STRING(20),
@@ -27,7 +27,7 @@ const Product = db.define('products',{
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        primartKey: true
+        primaryKey: true
     },
     name: {
         type: DataTypes.STRING(30),
@@ -42,6 +42,10 @@ const Product = db.define('products',{
         defaultValue: 0.00
     }
 });
+
+db.sync()
+    .then(() => console.log("Database synced successfully"))
+    .catch((e) => console.log("Error In syncing Database"))
 
 exports = module.exports = {
     User,Product
